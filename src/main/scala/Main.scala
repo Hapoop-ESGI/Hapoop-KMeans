@@ -1,3 +1,6 @@
+import KMeans._
+
 object Main extends App {
-  println("Hello, World!")
+  val str = new KMeansCoordonates().initializeCentroids(4)
+  println(str)
 }
