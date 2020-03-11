@@ -1,4 +1,5 @@
 import scala.util.Random
+import scala.math._
 
 package KMeans {
     class KMeansCoordonates {
@@ -12,8 +13,11 @@ package KMeans {
             Seq.fill(k)(-long + Random.nextInt(( long + long) + 1) + Random.nextFloat() , -lat + Random.nextInt(( lat + lat) + 1) + Random.nextFloat());
         }
 
-        def calculateDistance(points: (Float, Float)) = {
-            
+        def calculateDistance(points: Seq[(Float, Float)]) = {
+            val a = points(0)._1 - points(1)._1
+            val b = points(0)._2 - points(1)._2
+            val c = sqrt(pow(a, 2) + pow(b, 2))
+            c
         }
     }
 }
