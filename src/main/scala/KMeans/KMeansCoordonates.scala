@@ -16,13 +16,16 @@ package KMeans {
         def calculateDistance(points: Seq[(Float, Float)]) = {
             val a = points(0)._1 - points(1)._1
             val b = points(0)._2 - points(1)._2
-            val c = sqrt(pow(a, 2) + pow(b, 2))
-            c
+            sqrt(pow(a, 2) + pow(b, 2))
         }
 
         def findNearestCentroid(point: (Float, Float), centroids: Seq[(Float, Float)]) = {
             val l = List.tabulate(centroids.length)(n => calculateDistance(Seq(point, centroids(n))))
-            l.min
+            (l.min, l.indexOf(l.min))
+        }
+
+        def attributeClusters(points: Seq[(Float, Float)], centroids: Seq[(Float, Float)]) = {
+            List.tabulate(points.length)(n => findNearestCentroid(points(n), centroids)._2)
         }
     }
 }
