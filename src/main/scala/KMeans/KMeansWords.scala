@@ -11,7 +11,7 @@ package KMeans {
         }
 
         def initializeCentroids(k: Int) = {
-            Seq.fill(k)(Random.nextInt(MAXWORDCOUNT), Random.nextInt((MAXWORDCOUNT - Random.nextInt(MAXWORDCOUNT))/2));
+            Seq.fill(k)(Random.nextInt(MAXWORDCOUNT), (Random.nextInt(MAXWORDCOUNT/2)))
         }
 
         def calculateDistance(points: Seq[(Int, Int)]) = {
@@ -28,5 +28,22 @@ package KMeans {
         def attributeClusters(points: Seq[(Int, Int)], centroids: Seq[(Int, Int)]) = {
             List.tabulate(points.length)(n => findNearestCentroid(points(n), centroids)._2)
         }
+
+        def findCentroid(cluster: List[(Int, Int)]) = {
+            val x = List.tabulate(cluster.length)(n => cluster(n)._1).sum / (if (cluster.length > 0) cluster.length else 1)
+            val y = List.tabulate(cluster.length)(n => cluster(n)._2).sum / (if (cluster.length > 0) cluster.length else 1)
+            (x, y)
+        }
+
+        def getFullCluster(points: Seq[(Int, Int)], clusterList: Seq[Int], cluster: Int) = {
+            List.tabulate(clusterList.length)(n => if(clusterList(n) == cluster){ points(n) }).filterNot(_ == ()).asInstanceOf[List[(Int, Int)]]
+        }
+
+        def firstIteration(points: Seq[(Int, Int)], k: Int) = {
+            val centroids = initializeCentroids(k)
+            val clusteredPoints = attributeClusters(points, centroids)
+            
+        }
+
     }
 }
